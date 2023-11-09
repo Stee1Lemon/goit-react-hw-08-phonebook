@@ -1,17 +1,19 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { selectContacts, selectFilter } from 'redux/selectors';
+import { selectContacts } from 'redux/contacts/contacts-selectors';
 import { useEffect } from 'react';
 import { fetchContactsThunk } from 'redux/thunk';
 import { fetchDeleteContact } from 'api/api';
+import { selectFilter } from 'redux/filter/filter-selectors';
+import contactsOperations from 'redux/contacts/contacts-operations';
 
 export const ContactList = () => {
   const contacts = useSelector(selectContacts);
   const filter = useSelector(selectFilter);
   const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   dispatch(fetchContactsThunk());
-  // }, [dispatch]);
+  useEffect(() => {
+    dispatch(contactsOperations.getContacts());
+  }, [dispatch]);
 
   const deleteContact = async id => {
     await fetchDeleteContact(id);

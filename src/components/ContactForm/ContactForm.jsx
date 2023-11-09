@@ -1,7 +1,6 @@
-import { fetchNewContact } from 'api/api';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { fetchContactsThunk } from 'redux/thunk';
+import contactsOperations from 'redux/contacts/contacts-operations';
 
 export const ContactForm = () => {
   const [name, setName] = useState('');
@@ -11,8 +10,7 @@ export const ContactForm = () => {
   const handleSubmit = async e => {
     e.preventDefault();
 
-    await fetchNewContact({ name, number });
-    dispatch(fetchContactsThunk());
+    dispatch(contactsOperations.createContact({ name, number }));
     setName('');
     setNumber('');
   };

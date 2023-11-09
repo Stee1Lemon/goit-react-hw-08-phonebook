@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchContactsThunk } from './thunk';
+import contactsOperations from './contacts-operations';
 
 const initialState = {
   items: [],
@@ -12,11 +12,21 @@ const contactsSlice = createSlice({
   initialState,
   extraReducers: builder => {
     builder
-      .addCase(fetchContactsThunk.fulfilled, (state, { payload }) => {
-        state.items = payload;
-        state.isLoading = false;
-        state.error = '';
-      })
+      .addCase(
+        contactsOperations.getContacts.fulfilled,
+        (state, { payload }) => {
+          state.items = payload;
+          state.isLoading = false;
+          state.error = '';
+        }
+      )
+      .addCase(
+        contactsOperations.createContact.fulfilled,
+        (state, { payload }) => {
+          console.log(payload);
+          // state.items.push({payload.name, payload.number})
+        }
+      )
       .addMatcher(
         action => action.type.endsWith('/pending'),
         state => {
@@ -30,7 +40,7 @@ const contactsSlice = createSlice({
           state.isLoading = false;
           state.error = 'Request failed';
         }
-      )
+      );
   },
 });
 
