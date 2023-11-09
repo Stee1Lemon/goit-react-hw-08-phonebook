@@ -1,23 +1,22 @@
-import { ContactForm } from './ContactForm/ContactForm';
-import { Filter } from './Filter/Filter';
-import { ContactList } from './ContactList/ContactList';
-import { PhoneBook } from './App.styled';
-import { useSelector } from 'react-redux';
-import { selectError, selectIsLoading } from 'redux/selectors';
+import { lazy } from 'react';
+import { Navigate, Route, Routes } from 'react-router-dom';
+import { SharedLayout } from './SharedLayout';
+
+const PhoneBookPage = lazy(() => import('pages/PhoneBookPage'));
+const LoginPage = lazy(() => import('pages/LoginPage'));
+const RegisterPage = lazy(() => import('pages/RegisterPage'));
 
 export const App = () => {
-  const isLoading = useSelector(selectIsLoading);
-  const error = useSelector(selectError);
-
   return (
-    <PhoneBook>
-      <h1>Phonebook</h1>
-      <ContactForm />
-      <h2>Contacts</h2>
-      <Filter />
-      {isLoading && <h3>Loading...</h3>}
-      {error && <h3>Request failed</h3>}
-      <ContactList />
-    </PhoneBook>
+    <>
+      <Routes>
+        <Route path="/" element={<SharedLayout />}>
+          <Route path="login" element={<LoginPage />} />
+          <Route path="register" element={<RegisterPage />} />
+          <Route path="contacts" element={<PhoneBookPage />} />
+          <Route path="*" element={<Navigate to="login" />} />
+        </Route>
+      </Routes>
+    </>
   );
 };

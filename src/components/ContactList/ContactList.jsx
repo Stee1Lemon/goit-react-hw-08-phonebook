@@ -9,9 +9,9 @@ export const ContactList = () => {
   const filter = useSelector(selectFilter);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(fetchContactsThunk());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(fetchContactsThunk());
+  // }, [dispatch]);
 
   const deleteContact = async id => {
     await fetchDeleteContact(id);
