@@ -6,7 +6,6 @@ import { selectUserEmail } from 'redux/auth/auth-selectors';
 export const UserMenu = () => {
   const dispatch = useDispatch();
   const email = useSelector(selectUserEmail);
-  const navigate = useNavigate();
 
   return (
     <>
@@ -16,7 +15,6 @@ export const UserMenu = () => {
           type="button"
           onClick={() => {
             dispatch(authOperations.logOut());
-            navigate('/');
           }}
         >
           Logout

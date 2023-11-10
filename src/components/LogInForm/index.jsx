@@ -7,12 +7,10 @@ export const LoginForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const handleSubmit = async e => {
     e.preventDefault();
     dispatch(authOperations.logIn({ email, password }));
-    navigate('/');
     setEmail('');
     setPassword('');
   };
