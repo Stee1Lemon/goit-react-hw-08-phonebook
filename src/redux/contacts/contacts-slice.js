@@ -12,6 +12,9 @@ const contactsSlice = createSlice({
   initialState,
   extraReducers: builder => {
     builder
+      .addCase(contactsOperations.getContacts.pending, state => {
+        state.isLoading = true;
+      })
       .addCase(
         contactsOperations.getContacts.fulfilled,
         (state, { payload }) => {
@@ -20,17 +23,22 @@ const contactsSlice = createSlice({
           state.error = '';
         }
       )
+      .addCase(contactsOperations.createContact.pending, state => {
+        state.isLoading = true;
+      })
       .addCase(
         contactsOperations.createContact.fulfilled,
         (state, { payload }) => {
-          console.log(payload);
-          // state.items.push({payload.name, payload.number})
+          state.items.push(payload);
+          state.isLoading = false;
         }
       )
-      .addMatcher(
-        action => action.type.endsWith('/pending'),
-        state => {
-          state.isLoading = true;
+      .addCase(
+        contactsOperations.deleteContact.fulfilled,
+        (state, { payload }) => {
+          const newItems = state.items.filter(item => item.id !== payload);
+          state.items = newItems;
+          state.isLoading = false;
         }
       )
       .addMatcher(
@@ -44,5 +52,4 @@ const contactsSlice = createSlice({
   },
 });
 
-export const { deleteContactRedux } = contactsSlice.actions;
 export const contactsReducer = contactsSlice.reducer;

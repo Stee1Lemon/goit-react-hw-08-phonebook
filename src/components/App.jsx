@@ -31,6 +31,7 @@ export const App = () => {
             <Route element={<PrivateRoute redirectTo="/login" />}>
               <Route path="contacts" element={<PhoneBookPage />} />
             </Route>
+            <Route path="/" element={<Navigate to="login" />} />
             <Route path="*" element={<Navigate to="login" />} />
           </Route>
         </Routes>

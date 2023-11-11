@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 import authOperations from 'redux/auth/auth-operations';
 import { selectUserEmail } from 'redux/auth/auth-selectors';
+import { UserMenuComponent } from './UserMenu.styled';
 
 export const UserMenu = () => {
   const dispatch = useDispatch();
@@ -9,8 +9,10 @@ export const UserMenu = () => {
 
   return (
     <>
-      <div>
-        <p>{email}</p>
+      <UserMenuComponent>
+        <p>
+          Welcome <span>{email}</span>
+        </p>
         <button
           type="button"
           onClick={() => {
@@ -19,7 +21,7 @@ export const UserMenu = () => {
         >
           Logout
         </button>
-      </div>
+      </UserMenuComponent>
     </>
   );
 };

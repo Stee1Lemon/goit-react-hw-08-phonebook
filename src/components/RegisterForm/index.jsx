@@ -1,5 +1,7 @@
+import { FormComponent } from 'components/FormStyled/Form.styled';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import authOperations from 'redux/auth/auth-operations';
 
 export const RegisterForm = () => {
@@ -7,6 +9,7 @@ export const RegisterForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleSubmit = async e => {
     e.preventDefault();
@@ -17,7 +20,7 @@ export const RegisterForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <FormComponent onSubmit={handleSubmit}>
       <div>
         <label>
           <p>Name</p>
@@ -58,7 +61,12 @@ export const RegisterForm = () => {
           />
         </label>
       </div>
-      <button type={'submit'}>Register</button>
-    </form>
+      <div>
+        <button type={'submit'}>Register</button>
+        <button type="button" onClick={() => navigate('/login')}>
+          Back to Log in field
+        </button>
+      </div>
+    </FormComponent>
   );
 };
